@@ -4,59 +4,65 @@ This repository contains SQL queries that analyze Olympic Games data to extract 
 
 ## Queries Overview
 
-- Medal Rates of Countries in The 2016-2022 Olympic Games:
+- Medal Rates of Countries in The 2016-2022 Olympic Games
 
 ![Medal Rates of Countries in The 2016-2022 Olympic Games](https://github.com/user-attachments/assets/d1735954-aef9-4d69-86da-1dd328c3802e)
 
-> SELECT 
+```
+SELECT 
      country,
      SUM(CAST(gold AS INT)) AS total_gold,
      SUM(CAST(silver AS INT)) AS total_silver,
      SUM(CAST(bronze AS INT)) AS total_bronze
-> FROM 
+FROM 
      olympic_games
-> WHERE 
+WHERE 
      year >= 2016
-> GROUP BY 
+GROUP BY 
      country
-> ORDER BY 
+ORDER BY 
      total_gold DESC;
+```
 
-- T984-2022 Total Number of Athletes for Each Host Country:
+- T984-2022 Total Number of Athletes for Each Host Country
 
 ![1984-2022 Total Number of Athletes for Each Host Country](https://github.com/user-attachments/assets/a3f53484-52a6-4cc8-a6b0-f3e52c62fcc0)
 
->  SELECT 
+```
+SELECT 
     host_country,
     SUM(CAST(athletes AS INT)) AS total_athletes
-> FROM 
+FROM 
     olympic_games
-> GROUP BY 
+GROUP BY 
     host_country
-> ORDER BY 
+ORDER BY 
     total_athletes DESC;
+```
 
-- Gold Medal Ranking for The Winter Olympics in 2016-2022:
+- Gold Medal Ranking for The Winter Olympics in 2016-2022
 
 ![Gold Medal Ranking for The Winter Olympics in 2016-2022](https://github.com/user-attachments/assets/0a250355-e93f-4d96-996b-7a1889588ab4)
 
-> SELECT 
+```
+SELECT 
     country,
     SUM(CAST(gold AS INT)) AS total_gold
-> FROM 
+FROM 
     olympic_games
-> WHERE 
+WHERE 
     year >= 2016
     AND games_type = 'Winter'
-> GROUP BY 
+GROUP BY 
     country
-> HAVING 
+HAVING 
     SUM(CAST(gold AS INT)) > 0
-> ORDER BY 
+ORDER BY 
     total_gold DESC;
+```
 
 ## How to Use
-1. Download the SQL file:
+1. Download the `olympic_games.cvs` SQL file:
 Make sure you have a table structure that resembles the following columns (from the CSV data used)
   - year (INT): The year of the Olympic Games.
   - games_type (VARCHAR): The type of Olympic Games (Summer/Winter).
